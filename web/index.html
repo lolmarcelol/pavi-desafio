@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+
+  <h1 class="title has-text-centered">Vue.js Form Processing</h1>
+  <div class="box">
+
+    <!-- our signup form ===================== -->
+    <form id="signup-form" @submit.prevent="processForm">
+      <!-- name -->
+      <div class="field">
+        <label class="label">Nome</label>
+        <input type="text" class="input" name="nome" v-model="nome">
+      </div>
+
+      <!-- email -->
+      <div class="field">
+        <label class="label">Login</label>
+        <input type="text" class="input" name="login" v-model="login">
+      </div>
+      
+      <div class="field">
+        <label class="label">Senha</label>
+        <input type="password" class="input" v-model="senha">
+      </div>
+
+      <!-- submit button -->
+      <div class="field has-text-right">
+        <button v-on:click.prevent="post" type="submit" class="button is-danger">Submit</button>
+      </div>
+    </form>
+
+  </div>
+        
+        
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            
+            const app = new Vue({
+            el: '#signup-form',
+            data: {
+              nome: '',
+              login: '',
+              senha: ''
+            },
+            methods: {
+              processForm: function() {
+                var data = { nome: this.nome, login: this.login, senha: this.senha };
+                console.log(data);
+                alert('Processing');
+                this.$http.post('http://localhost:8084/pavi/webresourcesaluno/inserir', data)
+              }
+            }
+          });
+        </script>
+            
+    </body>
+</html>
