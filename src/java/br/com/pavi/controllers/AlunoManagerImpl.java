@@ -76,7 +76,22 @@ public class AlunoManagerImpl implements IAlunoManager{
 
     @Override
     public Aluno findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       IDaoManager manager;
+       manager = new DaoManagerImpl();
+       
+       try{
+           manager.iniciar();
+           IAlunoDAO dao = manager.getAlunoDao();
+           Aluno retorno;
+           retorno = dao.findById(id);
+           manager.confirmarTransação();
+           manager.encerrar();
+           return retorno;
+       }catch(Exception ex){
+           manager.abortarTransação();
+           throw ex;
+       }               
+        
     }
 
     @Override

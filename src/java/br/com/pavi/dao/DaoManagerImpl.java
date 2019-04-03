@@ -17,6 +17,7 @@ public class DaoManagerImpl implements IDaoManager{
 
     Connection conexão;
     private AlunoDAOImpl alunoDAO;
+    private ProfessorDaoImpl professorDAO;
     public DaoManagerImpl(){
         
     }
@@ -31,6 +32,7 @@ public class DaoManagerImpl implements IDaoManager{
             conexão = DriverManager.getConnection(url, "root", "root");
             conexão.setAutoCommit(false);
             alunoDAO = new AlunoDAOImpl(conexão);
+            professorDAO = new ProfessorDaoImpl(conexão);
             //clienteDao.setConexão(conexão);
             
         }
@@ -74,6 +76,11 @@ public class DaoManagerImpl implements IDaoManager{
     @Override
     public IAlunoDAO getAlunoDao() {
         return alunoDAO;
+    }
+
+    @Override
+    public IProfessorDAO getProfessorDao() {
+        return professorDAO;
     }
     
 }

@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Edit</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -42,25 +42,9 @@ and open the template in the editor.
       </div>
       <br>
     </form>
-    <table class="table">
-        <tr>
-            <th>Nome</th>
-            <th>Login</th>
-            <th>Senha</th>
-            <th>Excluir</th>
-            <th>Alterar</th>
-        </tr>
-        <tr v-for="aluno in alunos">
-            <td>{{aluno.nome}}</td>
-            <td>{{aluno.login}}</td>
-            <td>{{aluno.senha}}</td>
-            <td><button v-on:click="deletar(aluno.id)" type="submit" class="btn btn-danger btn-sm">Deletar</button></td>
-            <td><button v-on:click="alterar(aluno.id)" type="submit" class="btn btn-warning btn-sm">Alterar</button></td>
-        </tr>
-    </table>
-    <button v-on:click="logout()" type="submit" class="btn btn-warning btn-sm">LogOut</button>
-
   </div>
+      <button v-on:click="logout()" type="submit" class="btn btn-warning btn-sm">LogOut</button>
+
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -77,7 +61,6 @@ and open the template in the editor.
                     nome: '',
                     senha: '',
                     login:'',
-                    alunos: []
             },
             beforeMount: function(){
                 if (document.cookie.indexOf('website') == -1 ) {
@@ -98,33 +81,10 @@ and open the template in the editor.
               },
               post: function() {
                 var info = { nome: this.nome, login: this.login, senha: this.senha };
-                console.log(this.id);
-                if(this.id){
-                    info.id = this.id;
-                    this.$http.put("webresources/aluno/alterar", info).then(function(dat){
-                        console.log(dat);
-                        window.location.reload(false); 
-                    });
-                }else{
-                     this.$http.post("webresources/aluno/inserir", info).then(function(dat){
-                        console.log(dat);
-                        window.location.reload(false); 
-                    });
-                }
-               
-              },
-              deletar: function(id){
-                  this.$http.get("webresources/aluno/deletar/"+id).then(function(dat){
+                console.log("opa");
+                this.$http.post("webresources/aluno/inserir", info).then(function(dat){
+                    console.log(dat);
                     window.location.reload(false); 
-                    
-                });
-              },
-              alterar: function(id){
-                this.$http.get( "webresources/aluno/find/"+id).then(function(responseData){
-                this.nome = responseData.body.nome;
-                this.login = responseData.body.login;
-                this.senha = responseData.body.senha;
-                this.id = responseData.body.id;
                 });
               }
             }
@@ -132,5 +92,3 @@ and open the template in the editor.
 
         </script>
             
-    </body>
-</html>

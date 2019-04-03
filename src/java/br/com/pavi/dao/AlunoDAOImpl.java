@@ -91,7 +91,24 @@ public class AlunoDAOImpl implements IAlunoDAO{
 
     @Override
     public Aluno findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM aluno where id=?";
+        Aluno retorno = null;
+        try {
+            PreparedStatement pst = conexão.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet res = pst.executeQuery();
+            if(res.next())
+            {
+                retorno = new Aluno();
+                retorno.setLogin(res.getString("login"));
+                retorno.setSenha(res.getString("senha"));
+                retorno.setNome(res.getString("nome"));
+                retorno.setId(res.getInt("id"));
+            }
+        } catch (Exception ex) {
+            throw new DaoException("Erro ao alterar aluno do banco de dados");
+        }
+        return retorno;
     }
 
     @Override

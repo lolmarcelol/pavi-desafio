@@ -81,7 +81,7 @@ public class AlunoResource {
     
     @GET
     @Path("deletar/{id}")
-    public String listar(@PathParam("id")int id){
+    public String deletar(@PathParam("id")int id){
        Gson g = new Gson();
        IAlunoManager manager;
        manager = new AlunoManagerImpl();
@@ -90,6 +90,16 @@ public class AlunoResource {
        }else{
            return "0";
        }
+    }
+    
+    @GET
+    @Path("find/{id}")
+    public String find(@PathParam("id")int id){
+       Gson g = new Gson();
+       IAlunoManager manager;
+       manager = new AlunoManagerImpl();
+       Aluno retorno =  manager.findById(id);
+       return g.toJson(retorno);
     }
     
     @PUT

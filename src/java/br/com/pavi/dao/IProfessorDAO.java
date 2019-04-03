@@ -5,16 +5,14 @@
  */
 package br.com.pavi.dao;
 
+import br.com.pavi.models.Professor;
+
 /**
  *
  * @author narim
  */
-public interface IDaoManager {
+public interface IProfessorDAO {
     
-    public IAlunoDAO getAlunoDao();
-    public IProfessorDAO getProfessorDao();
-    public void abortarTransação();
-    public void confirmarTransação();
-    public void encerrar();
-     public void iniciar();
+    public boolean login(Professor professor);
+    
 }
